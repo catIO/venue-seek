@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+/* Material 3 tonal-spot scheme generated from seed #9C5B2E with @material/material-color-utilities. */
+:root {
+  color-scheme: light dark;
+  --md-primary: #8b4f25;
+  --md-on-primary: #ffffff;
+  --md-primary-container: #ffdbc8;
+  --md-on-primary-container: #6e380f;
+  --md-secondary: #755846;
+  --md-on-secondary: #ffffff;
+  --md-secondary-container: #ffdbc8;
+  --md-on-secondary-container: #5c4130;
+  --md-tertiary: #616133;
+  --md-on-tertiary: #ffffff;
+  --md-tertiary-container: #e7e6ac;
+  --md-on-tertiary-container: #49491e;
+  --md-error: #ba1a1a;
+  --md-on-error: #ffffff;
+  --md-error-container: #ffdad6;
+  --md-on-error-container: #93000a;
+  --md-surface: #fff8f5;
+  --md-on-surface: #221a15;
+  --md-surface-variant: #f4ded3;
+  --md-on-surface-variant: #52443c;
+  --md-surface-container-lowest: #ffffff;
+  --md-surface-container-low: #fff1ea;
+  --md-surface-container: #fcebe2;
+  --md-surface-container-high: #f6e5dc;
+  --md-surface-container-highest: #f0dfd7;
+  --md-outline: #84746b;
+  --md-outline-variant: #d7c3b8;
+  --md-inverse-surface: #382e29;
+  --md-inverse-on-surface: #ffede5;
+  --md-inverse-primary: #ffb689;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-primary: #ffb689;
+    --md-on-primary: #512300;
+    --md-primary-container: #6e380f;
+    --md-on-primary-container: #ffdbc8;
+    --md-secondary: #e5bfa9;
+    --md-on-secondary: #432b1c;
+    --md-secondary-container: #5c4130;
+    --md-on-secondary-container: #ffdbc8;
+    --md-tertiary: #cbc993;
+    --md-on-tertiary: #323209;
+    --md-tertiary-container: #49491e;
+    --md-on-tertiary-container: #e7e6ac;
+    --md-error: #ffb4ab;
+    --md-on-error: #690005;
+    --md-error-container: #93000a;
+    --md-on-error-container: #ffdad6;
+    --md-surface: #19120d;
+    --md-on-surface: #f0dfd7;
+    --md-surface-variant: #52443c;
+    --md-on-surface-variant: #d7c3b8;
+    --md-surface-container-lowest: #140d08;
+    --md-surface-container-low: #221a15;
+    --md-surface-container: #261e19;
+    --md-surface-container-high: #312823;
+    --md-surface-container-highest: #3d332d;
+    --md-outline: #9f8d83;
+    --md-outline-variant: #52443c;
+    --md-inverse-surface: #f0dfd7;
+    --md-inverse-on-surface: #382e29;
+    --md-inverse-primary: #8b4f25;
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-roboto), system-ui, sans-serif;
+
+  --color-primary: var(--md-primary);
+  --color-on-primary: var(--md-on-primary);
+  --color-primary-container: var(--md-primary-container);
+  --color-on-primary-container: var(--md-on-primary-container);
+  --color-secondary: var(--md-secondary);
+  --color-on-secondary: var(--md-on-secondary);
+  --color-secondary-container: var(--md-secondary-container);
+  --color-on-secondary-container: var(--md-on-secondary-container);
+  --color-tertiary: var(--md-tertiary);
+  --color-on-tertiary: var(--md-on-tertiary);
+  --color-tertiary-container: var(--md-tertiary-container);
+  --color-on-tertiary-container: var(--md-on-tertiary-container);
+  --color-error: var(--md-error);
+  --color-on-error: var(--md-on-error);
+  --color-error-container: var(--md-error-container);
+  --color-on-error-container: var(--md-on-error-container);
+  --color-surface: var(--md-surface);
+  --color-on-surface: var(--md-on-surface);
+  --color-surface-variant: var(--md-surface-variant);
+  --color-on-surface-variant: var(--md-on-surface-variant);
+  --color-surface-container-lowest: var(--md-surface-container-lowest);
+  --color-surface-container-low: var(--md-surface-container-low);
+  --color-surface-container: var(--md-surface-container);
+  --color-surface-container-high: var(--md-surface-container-high);
+  --color-surface-container-highest: var(--md-surface-container-highest);
+  --color-outline: var(--md-outline);
+  --color-outline-variant: var(--md-outline-variant);
+  --color-inverse-surface: var(--md-inverse-surface);
+  --color-inverse-on-surface: var(--md-inverse-on-surface);
+  --color-inverse-primary: var(--md-inverse-primary);
+
+  /* M3 shape scale */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 28px;
+
+  /* M3 elevation levels */
+  --shadow-elevation-1: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+  --shadow-elevation-2: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+  --shadow-elevation-3: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 4px 8px 3px rgb(0 0 0 / 0.15);
+}
+
+/* M3 type scale */
+@utility type-headline-medium { font-size: 28px; line-height: 36px; font-weight: 400; }
+@utility type-headline-small { font-size: 24px; line-height: 32px; font-weight: 400; }
+@utility type-title-large { font-size: 22px; line-height: 28px; font-weight: 400; }
+@utility type-title-medium { font-size: 16px; line-height: 24px; font-weight: 500; letter-spacing: 0.15px; }
+@utility type-title-small { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: 0.1px; }
+@utility type-body-large { font-size: 16px; line-height: 24px; font-weight: 400; letter-spacing: 0.5px; }
+@utility type-body-medium { font-size: 14px; line-height: 20px; font-weight: 400; letter-spacing: 0.25px; }
+@utility type-body-small { font-size: 12px; line-height: 16px; font-weight: 400; letter-spacing: 0.4px; }
+@utility type-label-large { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: 0.1px; }
+@utility type-label-medium { font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 0.5px; }
+
+/* M3 state layer: tints with the element's content color on hover/focus/press. */
+@utility state-layer {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 150ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  &:hover::before { opacity: 0.08; }
+  &:focus-visible::before, &:has(:focus-visible)::before, &:active::before { opacity: 0.1; }
+  &:disabled::before, &[aria-disabled="true"]::before { opacity: 0; }
+}
+
+@keyframes md-linear-indeterminate {
+  0% { left: -35%; right: 100%; }
+  60% { left: 100%; right: -90%; }
+  100% { left: 100%; right: -90%; }
+}
+
+@utility linear-progress-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  animation: md-linear-indeterminate 1.6s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+}
+
+body {
+  background: var(--md-surface);
+  color: var(--md-on-surface);
+}
