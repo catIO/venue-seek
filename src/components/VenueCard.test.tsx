@@ -33,16 +33,27 @@ describe("VenueCard", () => {
         );
     });
 
-    it("shows a performance space badge only when Google types the place as one", () => {
+    it("shows the strongest specific Google performance type", () => {
         const { rerender } = render(
             <VenueCard venue={makeVenue()} isSelected={false} onSelect={vi.fn()} />,
         );
-        expect(screen.queryByText("Performance space")).not.toBeInTheDocument();
+        expect(screen.queryByText(/Google music\/performance tag/)).not.toBeInTheDocument();
 
         rerender(
-            <VenueCard venue={makeVenue({ hasPerformanceSpace: true })} isSelected={false} onSelect={vi.fn()} />,
+            <VenueCard
+                venue={makeVenue({
+                    hasPerformanceSpace: true,
+                    performanceEvidence: {
+                        type: "live_music_venue",
+                        label: "Live music venue",
+                        strength: "direct",
+                    },
+                })}
+                isSelected={false}
+                onSelect={vi.fn()}
+            />,
         );
-        expect(screen.getByText("Performance space")).toBeInTheDocument();
+        expect(screen.getByText(/Google music\/performance tag/)).toHaveTextContent("Live music venue");
     });
 
     it("shows the estimated venue size", () => {
@@ -75,32 +86,49 @@ describe("VenueCard", () => {
         expect(Element.prototype.scrollIntoView).toHaveBeenCalled();
     });
 
-    it("loads and shows the Google summary on demand", async () => {
+    it("loads Google's structured music signal and general details on demand", async () => {
         fetchMock.mockResolvedValue(
             jsonResponse({
                 placeId: "ChIJ_test_place_1",
                 reviewSummary: { text: "Hosts a monthly chamber series.", disclosure: "Summarized with Gemini" },
                 liveMusic: true,
+                performanceEvidence: [
+                    { type: "live_music_venue", label: "Live music venue", strength: "direct" },
+                ],
             }),
         );
         render(<VenueCard venue={makeVenue()} isSelected={false} onSelect={vi.fn()} />);
 
-        await userEvent.click(screen.getByRole("button", { name: "Show Google summary" }));
+        await userEvent.click(screen.getByRole("button", { name: "Check Google music signals" }));
 
         expect(await screen.findByText("Hosts a monthly chamber series.")).toBeInTheDocument();
         expect(screen.getByText("Summarized with Gemini")).toBeInTheDocument();
-        expect(screen.getByText("Hosts live music")).toBeInTheDocument();
+        expect(screen.getByText("Google reports live music")).toBeInTheDocument();
+        expect(screen.getByText("Music signals from Google")).toBeInTheDocument();
         expect(fetchMock).toHaveBeenCalledTimes(1);
         expect(fetchMock).toHaveBeenCalledWith("/api/venues/ChIJ_test_place_1/summary");
+    });
+
+    it("does not present Google's missing music flag as proof that a venue has no performances", async () => {
+        fetchMock.mockResolvedValue(
+            jsonResponse({ placeId: "ChIJ_test_place_1", liveMusic: false, performanceEvidence: [] }),
+        );
+        render(<VenueCard venue={makeVenue()} isSelected={false} onSelect={vi.fn()} />);
+
+        await userEvent.click(screen.getByRole("button", { name: "Check Google music signals" }));
+
+        expect(
+            await screen.findByText(/Google doesn’t flag live music here/),
+        ).toHaveTextContent("This does not confirm that performances never happen.");
     });
 
     it("shows an error and allows retry when the summary fails", async () => {
         fetchMock.mockResolvedValue(jsonResponse({ error: "Places API request failed (500)" }, 502));
         render(<VenueCard venue={makeVenue()} isSelected={false} onSelect={vi.fn()} />);
 
-        await userEvent.click(screen.getByRole("button", { name: "Show Google summary" }));
+        await userEvent.click(screen.getByRole("button", { name: "Check Google music signals" }));
 
         expect(await screen.findByText("Places API request failed (500)")).toBeInTheDocument();
-        expect(screen.getByRole("button", { name: "Show Google summary" })).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: "Check Google music signals" })).toBeInTheDocument();
     });
 });

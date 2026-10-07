@@ -1,5 +1,10 @@
 import "server-only";
-import { getCategory, hasPerformanceSpace, type CategoryId } from "@/lib/venues/categories";
+import {
+    getCategory,
+    getPerformanceEvidence,
+    hasPerformanceSpace,
+    type CategoryId,
+} from "@/lib/venues/categories";
 import { haversineMiles, milesToMeters } from "@/lib/venues/geo";
 import { scoreVenue } from "@/lib/venues/scoring";
 import { estimateVenueSize } from "@/lib/venues/size";
@@ -64,7 +69,8 @@ function toVenue(
 
     const location = { lat: place.location.latitude, lng: place.location.longitude };
     const distanceMiles = Math.round(haversineMiles(center, location) * 10) / 10;
-    const performanceSpace = hasPerformanceSpace(place.types);
+    const performanceEvidence = getPerformanceEvidence(place.types)[0];
+    const performanceSpace = Boolean(performanceEvidence);
 
     return {
         placeId: place.id,
@@ -74,6 +80,7 @@ function toVenue(
         categories,
         typeLabel: place.primaryTypeDisplayName?.text,
         hasPerformanceSpace: performanceSpace,
+        performanceEvidence,
         size: estimateVenueSize({ name, types: place.types, categories }),
         phone: place.nationalPhoneNumber,
         website: place.websiteUri,
@@ -85,7 +92,7 @@ function toVenue(
         fitScore: scoreVenue({
             categories,
             name,
-            hasPerformanceSpace: performanceSpace,
+            performanceSignal: performanceEvidence?.strength,
             rating: place.rating,
             ratingCount: place.userRatingCount,
             hasWebsite: Boolean(place.websiteUri),

@@ -1,4 +1,4 @@
-import type { CategoryId } from "./categories";
+import type { CategoryId, PerformanceEvidence } from "./categories";
 import type { VenueSize } from "./size";
 
 export type LatLng = { lat: number; lng: number };
@@ -11,6 +11,7 @@ export type Venue = {
     categories: CategoryId[];
     typeLabel?: string;
     hasPerformanceSpace: boolean;
+    performanceEvidence?: PerformanceEvidence;
     /** Estimated, not from Google. */
     size: VenueSize;
     phone?: string;
@@ -34,6 +35,7 @@ export type AiSummary = { text: string; disclosure?: string };
 
 export type VenueSummary = {
     placeId: string;
+    performanceEvidence: PerformanceEvidence[];
     editorialSummary?: string;
     generativeSummary?: AiSummary;
     reviewSummary?: AiSummary;

@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { scoreVenue, type ScoreInput } from "./scoring";
+import { getPerformanceEvidence } from "./categories";
 
 const base: ScoreInput = {
     categories: ["library"],
     name: "Pack Library",
-    hasPerformanceSpace: false,
     hasWebsite: false,
     hasPhone: false,
     distanceMiles: 10,
@@ -12,12 +12,22 @@ const base: ScoreInput = {
 };
 
 describe("scoreVenue", () => {
+    it("prefers direct music tags over contextual event-space tags", () => {
+        expect(
+            getPerformanceEvidence(["event_venue", "auditorium", "live_music_venue"]),
+        ).toEqual([
+            { type: "live_music_venue", label: "Live music venue", strength: "direct" },
+            { type: "event_venue", label: "Event venue", strength: "contextual" },
+            { type: "auditorium", label: "Auditorium", strength: "contextual" },
+        ]);
+    });
+
     it("scores an ideal venue at 100", () => {
         expect(
             scoreVenue({
                 categories: ["recital_hall"],
                 name: "Diana Wortham Recital Hall",
-                hasPerformanceSpace: true,
+                performanceSignal: "direct",
                 rating: 5,
                 ratingCount: 200,
                 hasWebsite: true,
@@ -41,8 +51,10 @@ describe("scoreVenue", () => {
         expect(scoreVenue({ ...base, name: "Library Concert Hall" })).toBe(60);
     });
 
-    it("boosts places Google types as performance spaces", () => {
-        expect(scoreVenue({ ...base, hasPerformanceSpace: true })).toBe(60);
+    it("gives direct music tags a stronger score than broader venue tags", () => {
+        expect(scoreVenue({ ...base, performanceSignal: "direct" })).toBe(65);
+        expect(scoreVenue({ ...base, performanceSignal: "strong" })).toBe(60);
+        expect(scoreVenue({ ...base, performanceSignal: "contextual" })).toBe(50);
     });
 
     it("ignores ratings with too few reviews", () => {

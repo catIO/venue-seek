@@ -14,20 +14,44 @@ export const CATEGORY_IDS = [
 
 export type CategoryId = (typeof CATEGORY_IDS)[number];
 
-/** Google place types that indicate an actual performance or event space. */
-export const PERFORMANCE_SPACE_TYPES: readonly string[] = [
-    "concert_hall",
-    "auditorium",
-    "performing_arts_theater",
-    "live_music_venue",
-    "event_venue",
-    "amphitheatre",
-    "opera_house",
-    "philharmonic_hall",
-];
+export type PerformanceEvidenceStrength = "direct" | "strong" | "contextual";
+
+export type PerformanceEvidence = {
+    type: string;
+    label: string;
+    strength: PerformanceEvidenceStrength;
+};
+
+const PERFORMANCE_EVIDENCE_BY_TYPE: Record<string, Omit<PerformanceEvidence, "type">> = {
+    live_music_venue: { label: "Live music venue", strength: "direct" },
+    concert_hall: { label: "Concert hall", strength: "strong" },
+    performing_arts_theater: { label: "Performing arts venue", strength: "strong" },
+    opera_house: { label: "Opera house", strength: "strong" },
+    philharmonic_hall: { label: "Philharmonic hall", strength: "strong" },
+    event_venue: { label: "Event venue", strength: "contextual" },
+    auditorium: { label: "Auditorium", strength: "contextual" },
+    amphitheatre: { label: "Amphitheatre", strength: "contextual" },
+};
+
+export const PERFORMANCE_SPACE_TYPES = Object.keys(PERFORMANCE_EVIDENCE_BY_TYPE);
+
+const STRENGTH_RANK: Record<PerformanceEvidenceStrength, number> = {
+    direct: 3,
+    strong: 2,
+    contextual: 1,
+};
+
+export function getPerformanceEvidence(types: readonly string[] | undefined): PerformanceEvidence[] {
+    return [...new Set(types ?? [])]
+        .flatMap((type) => {
+            const evidence = PERFORMANCE_EVIDENCE_BY_TYPE[type];
+            return evidence ? [{ type, ...evidence }] : [];
+        })
+        .sort((a, b) => STRENGTH_RANK[b.strength] - STRENGTH_RANK[a.strength]);
+}
 
 export function hasPerformanceSpace(types: readonly string[] | undefined): boolean {
-    return types?.some((type) => PERFORMANCE_SPACE_TYPES.includes(type)) ?? false;
+    return getPerformanceEvidence(types).length > 0;
 }
 
 export type VenueCategory = {

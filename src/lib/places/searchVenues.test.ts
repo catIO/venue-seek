@@ -108,7 +108,7 @@ describe("searchVenues", () => {
             }),
             rawPlace({
                 id: "Academy for the Arts",
-                types: ["school", "educational_institution", "live_music_venue", "event_venue"],
+                types: ["school", "educational_institution", "event_venue", "live_music_venue"],
             }),
             rawPlace({ id: "Untyped" }),
         ]);
@@ -121,6 +121,11 @@ describe("searchVenues", () => {
 
         expect(result?.venues.map((v) => v.placeId)).toEqual(["Academy for the Arts"]);
         expect(result?.venues[0].hasPerformanceSpace).toBe(true);
+        expect(result?.venues[0].performanceEvidence).toEqual({
+            type: "live_music_venue",
+            label: "Live music venue",
+            strength: "direct",
+        });
         expect(result?.venues[0].size).toBe("medium");
     });
 

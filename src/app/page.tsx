@@ -5,6 +5,7 @@ import { Icon } from "@/components/Icon";
 import { SearchForm } from "@/components/SearchForm";
 import { VenueCard } from "@/components/VenueCard";
 import { MAP_ENABLED, VenueMap } from "@/components/VenueMap";
+import { VenueMark } from "@/components/VenueMark";
 import { useVenueSearch } from "@/hooks/useVenueSearch";
 import { DEFAULT_VENUE_SIZES, type VenueSize } from "@/lib/venues/size";
 
@@ -19,11 +20,16 @@ export default function Home() {
   return (
     <>
       <header className="sticky top-0 z-30 bg-surface">
-        <div className="mx-auto flex h-16 w-full max-w-7xl items-center gap-3 px-4">
-          <span className="flex size-10 items-center justify-center rounded-full bg-primary-container text-on-primary-container">
-            <Icon name="music" className="size-6" />
-          </span>
-          <h1 className="type-title-large">Venue Seek</h1>
+        <div className="mx-auto flex min-h-16 w-full max-w-7xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2">
+          <div className="flex shrink-0 items-center gap-3">
+            <span className="flex size-10 items-center justify-center rounded-full bg-primary-container text-on-primary-container">
+              <VenueMark className="size-7" />
+            </span>
+            <h1 className="type-title-large">Venue Seek</h1>
+          </div>
+          <h2 className="min-w-0 border-l border-outline-variant pl-4 type-title-medium text-on-surface-variant">
+            Find places to perform
+          </h2>
         </div>
         {state.status === "loading" && (
           <div role="progressbar" aria-label="Searching venues" className="relative h-1 overflow-hidden bg-primary-container">
@@ -33,14 +39,6 @@ export default function Home() {
       </header>
 
       <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 px-4 pt-2 pb-8">
-        <section className="flex flex-col gap-1">
-          <h2 className="type-headline-small sm:type-headline-medium">Find places to perform</h2>
-          <p className="type-body-large text-on-surface-variant">
-            Recital halls, libraries, bookstores, churches and community spaces suited to solo
-            classical guitar.
-          </p>
-        </section>
-
         <SearchForm
           isLoading={state.status === "loading"}
           sizes={sizes}

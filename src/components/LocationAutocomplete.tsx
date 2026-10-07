@@ -154,9 +154,8 @@ export function LocationAutocomplete({ label, value, sessionToken, onChange, onS
                             // Keep focus in the input so blur doesn't close the list before the click lands.
                             onMouseDown={(e) => e.preventDefault()}
                             onClick={() => select(suggestion)}
-                            className={`state-layer flex min-h-14 cursor-pointer items-center gap-4 px-4 py-2 text-on-surface ${
-                                index === activeIndex ? "bg-on-surface/10" : ""
-                            }`}
+                            className={`state-layer flex min-h-14 cursor-pointer items-center gap-4 px-4 py-2 text-on-surface ${index === activeIndex ? "bg-on-surface/10" : ""
+                                }`}
                         >
                             <Icon name="location" className="size-6 text-on-surface-variant" />
                             <span className="flex flex-col">

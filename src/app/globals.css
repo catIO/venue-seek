@@ -118,21 +118,78 @@
 }
 
 /* M3 type scale */
-@utility type-headline-medium { font-size: 28px; line-height: 36px; font-weight: 400; }
-@utility type-headline-small { font-size: 24px; line-height: 32px; font-weight: 400; }
-@utility type-title-large { font-size: 22px; line-height: 28px; font-weight: 400; }
-@utility type-title-medium { font-size: 16px; line-height: 24px; font-weight: 500; letter-spacing: 0.15px; }
-@utility type-title-small { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: 0.1px; }
-@utility type-body-large { font-size: 16px; line-height: 24px; font-weight: 400; letter-spacing: 0.5px; }
-@utility type-body-medium { font-size: 14px; line-height: 20px; font-weight: 400; letter-spacing: 0.25px; }
-@utility type-body-small { font-size: 12px; line-height: 16px; font-weight: 400; letter-spacing: 0.4px; }
-@utility type-label-large { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: 0.1px; }
-@utility type-label-medium { font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 0.5px; }
+@utility type-headline-medium {
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 400;
+}
+
+@utility type-headline-small {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 400;
+}
+
+@utility type-title-large {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
+@utility type-title-medium {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 0.15px;
+}
+
+@utility type-title-small {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+
+@utility type-body-large {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+@utility type-body-medium {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+}
+
+@utility type-body-small {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+}
+
+@utility type-label-large {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+
+@utility type-label-medium {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
 
 /* M3 state layer: tints with the element's content color on hover/focus/press. */
 @utility state-layer {
   position: relative;
   isolation: isolate;
+
   &::before {
     content: "";
     position: absolute;
@@ -144,15 +201,38 @@
     pointer-events: none;
     transition: opacity 150ms cubic-bezier(0.2, 0, 0, 1);
   }
-  &:hover::before { opacity: 0.08; }
-  &:focus-visible::before, &:has(:focus-visible)::before, &:active::before { opacity: 0.1; }
-  &:disabled::before, &[aria-disabled="true"]::before { opacity: 0; }
+
+  &:hover::before {
+    opacity: 0.08;
+  }
+
+  &:focus-visible::before,
+  &:has(:focus-visible)::before,
+  &:active::before {
+    opacity: 0.1;
+  }
+
+  &:disabled::before,
+  &[aria-disabled="true"]::before {
+    opacity: 0;
+  }
 }
 
 @keyframes md-linear-indeterminate {
-  0% { left: -35%; right: 100%; }
-  60% { left: 100%; right: -90%; }
-  100% { left: 100%; right: -90%; }
+  0% {
+    left: -35%;
+    right: 100%;
+  }
+
+  60% {
+    left: 100%;
+    right: -90%;
+  }
+
+  100% {
+    left: 100%;
+    right: -90%;
+  }
 }
 
 @utility linear-progress-bar {

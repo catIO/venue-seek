@@ -20,6 +20,12 @@ function scoreClasses(score: number): string {
     return "bg-surface-container-highest text-on-surface-variant";
 }
 
+function evidenceClasses(strength: string): string {
+    if (strength === "direct") return "bg-tertiary-container text-on-tertiary-container";
+    if (strength === "strong") return "bg-secondary-container text-on-secondary-container";
+    return "bg-surface-container-highest text-on-surface-variant";
+}
+
 const assistChip =
     "state-layer inline-flex h-8 items-center gap-2 rounded-sm border border-outline-variant pr-4 pl-2 type-label-large text-on-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
 
@@ -37,11 +43,10 @@ export function VenueCard({ venue, isSelected, onSelect }: Props) {
             ref={ref}
             aria-label={venue.name}
             onClick={() => onSelect(venue.placeId)}
-            className={`flex cursor-pointer flex-col gap-3 rounded-md p-4 transition-shadow ${
-                isSelected
+            className={`flex cursor-pointer flex-col gap-3 rounded-md p-4 transition-shadow ${isSelected
                     ? "bg-surface-container-high shadow-elevation-2 outline-2 outline-primary"
                     : "bg-surface-container-low shadow-elevation-1 hover:shadow-elevation-2"
-            }`}
+                }`}
         >
             <header className="flex items-start justify-between gap-3">
                 <div className="flex min-w-0 flex-col gap-1">
@@ -82,10 +87,17 @@ export function VenueCard({ venue, isSelected, onSelect }: Props) {
                 </p>
             </div>
 
-            {venue.hasPerformanceSpace && (
-                <span className="inline-flex h-8 items-center gap-2 self-start rounded-sm bg-tertiary-container pr-4 pl-2 type-label-large text-on-tertiary-container">
-                    <Icon name="music" className="size-[18px]" />
-                    Performance space
+            {venue.performanceEvidence && (
+                <span
+                    title={`Google Places type: ${venue.performanceEvidence.type}`}
+                    className={`inline-flex min-h-8 items-center gap-2 self-start rounded-sm px-3 py-1 type-label-large ${evidenceClasses(venue.performanceEvidence.strength)}`}
+                >
+                    {venue.performanceEvidence.strength === "direct" && (
+                        <Icon name="music" className="size-[18px]" />
+                    )}
+                    {venue.performanceEvidence.strength === "contextual" ? "Google event-space tag" : "Google music/performance tag"}
+                    <span aria-hidden="true">·</span>
+                    {venue.performanceEvidence.label}
                 </span>
             )}
 

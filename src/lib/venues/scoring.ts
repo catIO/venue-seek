@@ -1,9 +1,9 @@
-import { getCategory, type CategoryId } from "./categories";
+import { getCategory, type CategoryId, type PerformanceEvidenceStrength } from "./categories";
 
 export type ScoreInput = {
     categories: CategoryId[];
     name: string;
-    hasPerformanceSpace: boolean;
+    performanceSignal?: PerformanceEvidenceStrength;
     rating?: number;
     ratingCount?: number;
     hasWebsite: boolean;
@@ -24,7 +24,9 @@ export function scoreVenue(input: ScoreInput): number {
 
     let score = categoryWeight * 50;
     if (MUSIC_KEYWORDS.test(input.name)) score += 15;
-    if (input.hasPerformanceSpace) score += 15;
+    if (input.performanceSignal === "direct") score += 20;
+    else if (input.performanceSignal === "strong") score += 15;
+    else if (input.performanceSignal === "contextual") score += 5;
     if (input.rating !== undefined && (input.ratingCount ?? 0) >= MIN_REVIEWS_FOR_RATING) {
         score += clamp((input.rating - 3) / 2, 0, 1) * 15;
     }

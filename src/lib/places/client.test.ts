@@ -119,6 +119,7 @@ describe("getPlaceSummary", () => {
                 },
                 reviewSummary: { text: { text: "People love the events." } },
                 liveMusic: true,
+                types: ["event_venue", "live_music_venue"],
             }),
         );
 
@@ -131,6 +132,10 @@ describe("getPlaceSummary", () => {
             },
             reviewSummary: { text: "People love the events.", disclosure: undefined },
             liveMusic: true,
+            performanceEvidence: [
+                { type: "live_music_venue", label: "Live music venue", strength: "direct" },
+                { type: "event_venue", label: "Event venue", strength: "contextual" },
+            ],
         });
 
         const request = lastRequest();
@@ -147,6 +152,7 @@ describe("getPlaceSummary", () => {
             generativeSummary: undefined,
             reviewSummary: undefined,
             liveMusic: undefined,
+            performanceEvidence: [],
         });
     });
 });

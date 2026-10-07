@@ -70,9 +70,8 @@ export function SearchForm({ onSearch, isLoading, sizes, onSizesChange, venues }
                             {RADIUS_OPTIONS_MILES.map((miles, index) => (
                                 <label
                                     key={miles}
-                                    className={`state-layer flex cursor-pointer items-center gap-2 px-4 type-label-large text-on-surface has-checked:bg-secondary-container has-checked:text-on-secondary-container has-focus-visible:outline-2 has-focus-visible:-outline-offset-2 has-focus-visible:outline-primary ${
-                                        index > 0 ? "border-l border-outline" : ""
-                                    }`}
+                                    className={`state-layer flex cursor-pointer items-center gap-2 px-4 type-label-large text-on-surface has-checked:bg-secondary-container has-checked:text-on-secondary-container has-focus-visible:outline-2 has-focus-visible:-outline-offset-2 has-focus-visible:outline-primary ${index > 0 ? "border-l border-outline" : ""
+                                        }`}
                                 >
                                     <input
                                         type="radio"

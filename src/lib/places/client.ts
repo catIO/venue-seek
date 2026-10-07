@@ -1,4 +1,5 @@
 import "server-only";
+import { getPerformanceEvidence } from "@/lib/venues/categories";
 import type { LatLng, LocationSuggestion, VenueSummary } from "@/lib/venues/types";
 
 const PLACES_BASE_URL = "https://places.googleapis.com/v1";
@@ -23,6 +24,7 @@ export const SEARCH_FIELD_MASK = [
 
 export const SUMMARY_FIELD_MASK = [
     "id",
+    "types",
     "editorialSummary",
     "generativeSummary",
     "reviewSummary",
@@ -53,6 +55,7 @@ type RawSummaryPlace = {
     generativeSummary?: { overview?: LocalizedText; disclosureText?: LocalizedText };
     reviewSummary?: { text?: LocalizedText; disclosureText?: LocalizedText };
     liveMusic?: boolean;
+    types?: string[];
 };
 
 type RawAutocompleteResponse = {
@@ -204,5 +207,6 @@ export async function getPlaceSummary(placeId: string): Promise<VenueSummary> {
             ? { text: review, disclosure: place.reviewSummary?.disclosureText?.text }
             : undefined,
         liveMusic: place.liveMusic,
+        performanceEvidence: getPerformanceEvidence(place.types),
     };
 }

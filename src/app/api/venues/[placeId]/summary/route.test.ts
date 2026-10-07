@@ -20,7 +20,11 @@ beforeEach(() => {
 
 describe("GET /api/venues/[placeId]/summary", () => {
     it("returns the place summary", async () => {
-        const summary = { placeId: "ChIJN1t_tDeuEmsR", editorialSummary: "Nice." };
+        const summary = {
+            placeId: "ChIJN1t_tDeuEmsR",
+            editorialSummary: "Nice.",
+            performanceEvidence: [],
+        };
         vi.mocked(getPlaceSummary).mockResolvedValue(summary);
 
         const response = await get("ChIJN1t_tDeuEmsR");
