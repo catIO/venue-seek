@@ -44,8 +44,8 @@ export function VenueCard({ venue, isSelected, onSelect }: Props) {
             aria-label={venue.name}
             onClick={() => onSelect(venue.placeId)}
             className={`flex cursor-pointer flex-col gap-3 rounded-md p-4 transition-shadow ${isSelected
-                    ? "bg-surface-container-high shadow-elevation-2 outline-2 outline-primary"
-                    : "bg-surface-container-low shadow-elevation-1 hover:shadow-elevation-2"
+                ? "bg-surface-container-high shadow-elevation-2 outline-2 outline-primary"
+                : "bg-surface-container-low shadow-elevation-1 hover:shadow-elevation-2"
                 }`}
         >
             <header className="flex items-start justify-between gap-3">

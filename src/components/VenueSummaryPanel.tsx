@@ -72,7 +72,7 @@ export function VenueSummaryPanel({ placeId }: { placeId: string }) {
                 <p className="type-title-small">Music signals from Google</p>
                 {liveMusic === true && (
                     <span className="inline-flex h-8 items-center gap-2 self-start rounded-sm bg-tertiary-container pr-4 pl-2 type-label-large text-on-tertiary-container">
-                    <Icon name="music" className="size-[18px]" />
+                        <Icon name="music" className="size-[18px]" />
                         Google reports live music
                     </span>
                 )}
