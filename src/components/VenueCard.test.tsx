@@ -37,7 +37,7 @@ describe("VenueCard", () => {
         const { rerender } = render(
             <VenueCard venue={makeVenue()} isSelected={false} onSelect={vi.fn()} />,
         );
-        expect(screen.queryByText(/Google music\/performance tag/)).not.toBeInTheDocument();
+        expect(screen.queryByText("Live music venue")).not.toBeInTheDocument();
 
         rerender(
             <VenueCard
@@ -53,7 +53,7 @@ describe("VenueCard", () => {
                 onSelect={vi.fn()}
             />,
         );
-        expect(screen.getByText(/Google music\/performance tag/)).toHaveTextContent("Live music venue");
+        expect(screen.getByText("Live music venue")).toBeInTheDocument();
     });
 
     it("shows the estimated venue size", () => {
@@ -103,7 +103,7 @@ describe("VenueCard", () => {
 
         expect(await screen.findByText("Hosts a monthly chamber series.")).toBeInTheDocument();
         expect(screen.getByText("Summarized with Gemini")).toBeInTheDocument();
-        expect(screen.getByText("Google reports live music")).toBeInTheDocument();
+        expect(screen.getByText("Live music")).toBeInTheDocument();
         expect(screen.getByText("Music signals from Google")).toBeInTheDocument();
         expect(fetchMock).toHaveBeenCalledTimes(1);
         expect(fetchMock).toHaveBeenCalledWith("/api/venues/ChIJ_test_place_1/summary");

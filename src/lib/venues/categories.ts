@@ -1,6 +1,7 @@
 export const CATEGORY_IDS = [
     "recital_hall",
     "music_school",
+    "university_conservatory",
     "library",
     "church",
     "book_store",
@@ -67,8 +68,9 @@ export type VenueCategory = {
 };
 
 export const VENUE_CATEGORIES: readonly VenueCategory[] = [
-    { id: "recital_hall", label: "Recital & concert halls", textQuery: "concert hall", requiresPerformanceSpace: true, weight: 1 },
+    { id: "recital_hall", label: "Recital, concert & performing arts venues", textQuery: "concert hall performing arts center", requiresPerformanceSpace: true, weight: 1 },
     { id: "music_school", label: "Music schools with performance space", textQuery: "music school", requiresPerformanceSpace: true, weight: 0.85 },
+    { id: "university_conservatory", label: "University & conservatory venues", textQuery: "university concert hall conservatory", includedType: "university", requiresPerformanceSpace: true, weight: 0.8 },
     { id: "library", label: "Libraries", textQuery: "public library", includedType: "library", weight: 0.9 },
     { id: "church", label: "Churches", textQuery: "church", includedType: "church", weight: 0.8 },
     { id: "book_store", label: "Bookstores", textQuery: "independent bookstore", includedType: "book_store", weight: 0.8 },
@@ -85,7 +87,6 @@ export const DEFAULT_CATEGORY_IDS: CategoryId[] = [
     "music_school",
     "library",
     "church",
-    "book_store",
     "community_center",
 ];
 

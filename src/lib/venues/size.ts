@@ -17,13 +17,14 @@ const INTIMATE_NAME = /\b(listening room|house concerts?|salon)\b/i;
 const LARGE_TYPES = ["arena", "stadium", "amphitheatre", "opera_house", "philharmonic_hall", "convention_center", "concert_hall", "auditorium"];
 const VENUE_TYPES = ["performing_arts_theater", "live_music_venue", "event_venue"];
 const BAR_TYPES = ["bar", "pub", "restaurant", "night_club"];
-const MEDIUM_TYPES = ["church", "place_of_worship"];
-const SMALL_TYPES = ["library", "community_center", "museum", "university", "school", "educational_institution"];
+const MEDIUM_TYPES = ["church", "place_of_worship", "university"];
+const SMALL_TYPES = ["library", "community_center", "museum", "school", "educational_institution"];
 const INTIMATE_TYPES = ["book_store", "cafe", "coffee_shop", "art_gallery", "wine_bar", "winery"];
 
 const SIZE_BY_CATEGORY: Record<CategoryId, VenueSize> = {
     recital_hall: "medium",
     music_school: "small",
+    university_conservatory: "medium",
     library: "small",
     church: "medium",
     book_store: "intimate",

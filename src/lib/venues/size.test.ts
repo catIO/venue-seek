@@ -12,6 +12,7 @@ describe("estimateVenueSize", () => {
         ["Firestorm Books", ["book_store", "event_venue"], "small"],
         ["Malaprop's Bookstore", ["book_store", "store"], "intimate"],
         ["Pack Memorial Library", ["library"], "small"],
+        ["University Concert Hall", ["university", "event_venue"], "medium"],
         ["First Baptist Church", ["church", "place_of_worship"], "medium"],
         ["Basilica of St. Lawrence", ["church"], "large"],
     ] as const)("%s → %s", (name, types, expected) => {
@@ -21,6 +22,7 @@ describe("estimateVenueSize", () => {
     it("falls back to the category when Google provides no useful types", () => {
         expect(estimateVenueSize({ name: "Oak Room", types: [], categories: ["cafe"] })).toBe("intimate");
         expect(estimateVenueSize({ name: "Oak Room", categories: ["recital_hall"] })).toBe("medium");
+        expect(estimateVenueSize({ name: "Oak Room", categories: ["university_conservatory"] })).toBe("medium");
         expect(estimateVenueSize({ name: "Oak Room", categories: [] })).toBe("small");
     });
 });

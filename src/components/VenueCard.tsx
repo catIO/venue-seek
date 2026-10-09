@@ -89,14 +89,11 @@ export function VenueCard({ venue, isSelected, onSelect }: Props) {
 
             {venue.performanceEvidence && (
                 <span
-                    title={`Google Places type: ${venue.performanceEvidence.type}`}
                     className={`inline-flex min-h-8 items-center gap-2 self-start rounded-sm px-3 py-1 type-label-large ${evidenceClasses(venue.performanceEvidence.strength)}`}
                 >
                     {venue.performanceEvidence.strength === "direct" && (
                         <Icon name="music" className="size-[18px]" />
                     )}
-                    {venue.performanceEvidence.strength === "contextual" ? "Google event-space tag" : "Google music/performance tag"}
-                    <span aria-hidden="true">·</span>
                     {venue.performanceEvidence.label}
                 </span>
             )}

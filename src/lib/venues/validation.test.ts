@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { autocompleteQuerySchema, placeIdSchema, searchRequestSchema } from "./searchSchema";
 import { safeExternalUrl } from "./url";
-import { CATEGORY_IDS, VENUE_CATEGORIES } from "./categories";
+import { CATEGORY_IDS, DEFAULT_CATEGORY_IDS, VENUE_CATEGORIES } from "./categories";
 
 describe("searchRequestSchema", () => {
     const valid = { location: "  Asheville, NC ", radiusMiles: 10, categories: ["library"] };
@@ -78,5 +78,31 @@ describe("safeExternalUrl", () => {
 describe("VENUE_CATEGORIES", () => {
     it("defines every category id exactly once", () => {
         expect(VENUE_CATEGORIES.map((c) => c.id).sort()).toEqual([...CATEGORY_IDS].sort());
+    });
+
+    it("defaults to the most plausible unamplified performance venues", () => {
+        expect(DEFAULT_CATEGORY_IDS).toEqual([
+            "recital_hall",
+            "music_school",
+            "library",
+            "church",
+            "community_center",
+        ]);
+    });
+
+    it("searches concert halls and performing arts centers in one category request", () => {
+        expect(VENUE_CATEGORIES.find((category) => category.id === "recital_hall")).toMatchObject({
+            textQuery: "concert hall performing arts center",
+            requiresPerformanceSpace: true,
+        });
+    });
+
+    it("offers university and conservatory venues as an optional, performance-filtered search", () => {
+        expect(DEFAULT_CATEGORY_IDS).not.toContain("university_conservatory");
+        expect(VENUE_CATEGORIES.find((category) => category.id === "university_conservatory")).toMatchObject({
+            textQuery: "university concert hall conservatory",
+            includedType: "university",
+            requiresPerformanceSpace: true,
+        });
     });
 });

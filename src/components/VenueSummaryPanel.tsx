@@ -73,7 +73,7 @@ export function VenueSummaryPanel({ placeId }: { placeId: string }) {
                 {liveMusic === true && (
                     <span className="inline-flex h-8 items-center gap-2 self-start rounded-sm bg-tertiary-container pr-4 pl-2 type-label-large text-on-tertiary-container">
                         <Icon name="music" className="size-[18px]" />
-                        Google reports live music
+                        Live music
                     </span>
                 )}
                 {liveMusic === false && (
@@ -88,11 +88,8 @@ export function VenueSummaryPanel({ placeId }: { placeId: string }) {
                     {performanceEvidence.map((evidence) => (
                         <li
                             key={evidence.type}
-                            title={`Google Places type: ${evidence.type}`}
                             className={`rounded-sm px-3 py-1 type-label-large ${evidenceClasses(evidence.strength)}`}
                         >
-                            {evidence.strength === "contextual" ? "Event-space tag" : "Music/performance tag"}
-                            <span aria-hidden="true"> · </span>
                             {evidence.label}
                         </li>
                     ))}
